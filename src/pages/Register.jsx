@@ -58,7 +58,7 @@ export default function Register() {
           Last Name
           <input
             type="text"
-            value={Lastname}
+            value={lastname}
             onChange={(e) => setLastname(e.target.value)}
           />
         </label>
