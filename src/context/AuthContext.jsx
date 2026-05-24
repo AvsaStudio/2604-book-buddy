@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
 
-const API = "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books";
+const API = "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api";
 
 const AuthContext = createContext();
 
@@ -17,8 +17,8 @@ export function AuthProvider({ children }) {
   }, []);
 
   async function fetchUser(token) {
-    const response = await fetch(`${API}/user/me`, {
-      header: { Authorization: `Bearer ${token}` },
+    const response = await fetch(`${API}/users/me`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
     const result = await response.json();
     setUser(result);

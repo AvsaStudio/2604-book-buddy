@@ -4,12 +4,10 @@ import { useAuth } from "../context/AuthContext";
 
 const API = "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api";
 
-export default function Register() {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+export default function Login() {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -19,16 +17,16 @@ export default function Register() {
     setError("");
 
     try {
-      const response = await fetch(`${API}/users/register`, {
+      const response = await fetch(`${API}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstname, lastname, email, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.message || "Registration failed.");
+        setError(result.message || "Login failed.");
         return;
       }
 
@@ -41,29 +39,11 @@ export default function Register() {
 
   return (
     <main>
-      <h1>Register</h1>
+      <h1>Log In</h1>
 
       {error && <p>{error}</p>}
 
       <form onSubmit={handleSubmit}>
-        <label>
-          First Name
-          <input
-            type="text"
-            value={firstname}
-            onChange={(e) => setFirstname(e.target.value)}
-          />
-        </label>
-
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastname}
-            onChange={(e) => setLastname(e.target.value)}
-          />
-        </label>
-
         <label>
           Email
           <input
@@ -82,11 +62,11 @@ export default function Register() {
           />
         </label>
 
-        <button type="submit">Register</button>
+        <button type="submit">Log In</button>
       </form>
 
       <p>
-        Already have an account? <Link to="/login">Log In</Link>
+        Don't have an account? <Link to="/register">Register</Link>
       </p>
     </main>
   );
